@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  postgres_gymn:
+    image: postgres:13.4-alpine
+    container_name: postgres.gymn.localhost
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=gymn
+      - POSTGRES_PASSWORD=douglasblnk_gymn
+    volumes:
+      - ./database/dump.sql:/docker-entrypoint-initdb.d/gymn.sql
+      - .docker/postgres:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - multiplier_website
+
+networks:
+  multiplier_website:
+    driver: bridge
