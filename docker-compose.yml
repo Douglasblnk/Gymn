@@ -10,12 +10,6 @@ services:
       - POSTGRES_PASSWORD=douglasblnk_gymn
     volumes:
       - ./database/dump.sql:/docker-entrypoint-initdb.d/gymn.sql
-      - .docker/postgres:/var/lib/postgresql/data
+      - .docker/postgres:/var/lib/douglasblnk/data
     ports:
       - 5432:5432
-    networks:
-      - multiplier_website
-
-networks:
-  multiplier_website:
-    driver: bridge
