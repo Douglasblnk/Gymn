@@ -5,9 +5,9 @@ CREATE TABLE "users" (
   "password" varchar NOT NULL,
   "is_personal" boolean DEFAULT false,
   "photo" varchar,
-  "created_at" date NOT NULL,
-  "updated_at" date NOT NULL,
-  "deleted_at" boolean,
+  "created_at" timestamp NOT NULL DEFAULT now(),
+  "updated_at" timestamp NOT NULL DEFAULT now(),
+  "deleted_at" timestamp,
   "student_code" int
 );
 
