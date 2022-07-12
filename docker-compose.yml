@@ -9,7 +9,7 @@ services:
       - POSTGRES_DB=gymn
       - POSTGRES_PASSWORD=douglasblnk_gymn
     volumes:
-      - ./database/dump.sql:/docker-entrypoint-initdb.d/gymn.sql
+      - ./api/database/dump.sql:/docker-entrypoint-initdb.d/gymn.sql
       - .docker/postgres:/var/lib/douglasblnk/data
     ports:
       - 5432:5432
