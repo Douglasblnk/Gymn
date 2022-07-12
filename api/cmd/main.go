@@ -1,6 +1,7 @@
 package main
 
 import (
+	"gymn/internal/database"
 	server "gymn/v1"
 	"log"
 
@@ -12,9 +13,9 @@ func init() {
 		log.Fatal("cannot load config:", err)
 	}
 
-	// if err := database.InitDB(); err != nil {
-	// 	log.Fatal("cannot connect to DB", err)
-	// }
+	if _, err := database.InitDB(); err != nil {
+		log.Fatal("cannot connect to DB", err)
+	}
 }
 
 func main() {
