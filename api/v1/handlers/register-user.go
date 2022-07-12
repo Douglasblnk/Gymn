@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"fmt"
+	userService "gymn/internal/services/user"
 	"gymn/v1/schemas"
 	"gymn/v1/utils"
 
@@ -15,14 +15,11 @@ func RegisterUser(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(err)
 	}
 
-	fmt.Println("userSchema", userSchema)
-	// response, err := authService.SignIn(loginSchema)
+	response, err := userService.RegisterUser(userSchema)
 
-	// if err != nil {
-	// 	return c.Status(fiber.StatusBadRequest).JSON(err)
-	// }
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(err)
+	}
 
-	// return c.Status(fiber.StatusCreated).JSON(response)
-
-	return nil
+	return c.Status(fiber.StatusCreated).JSON(response)
 }

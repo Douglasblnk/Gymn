@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"fmt"
+	authService "gymn/internal/services/auth"
 	"gymn/v1/schemas"
 	"gymn/v1/utils"
 
@@ -15,14 +15,11 @@ func SignInHandler(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(err)
 	}
 
-	fmt.Println("loginSchema", loginSchema)
-	// response, err := authService.SignIn(loginSchema)
+	response, err := authService.SignIn(loginSchema)
 
-	// if err != nil {
-	// 	return c.Status(fiber.StatusBadRequest).JSON(err)
-	// }
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(err)
+	}
 
-	// return c.Status(fiber.StatusCreated).JSON(response)
-
-	return nil
+	return c.Status(fiber.StatusCreated).JSON(response)
 }
