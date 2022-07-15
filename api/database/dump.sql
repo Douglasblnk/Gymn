@@ -17,9 +17,9 @@ CREATE TABLE "students" (
   "code" varchar NOT NULL,
   "weight" varchar NOT NULL,
   "height" float NOT NULL,
-  "created_at" date NOT NULL,
-  "updated_at" date NOT NULL,
-  "deleted_at" boolean,
+  "created_at" timestamp NOT NULL DEFAULT now(),
+  "updated_at" timestamp NOT NULL DEFAULT now(),
+  "deleted_at" timestamp,
   "training_sheets_code" int
 );
 
@@ -27,9 +27,9 @@ CREATE TABLE "training_sheets" (
   "id" SERIAL PRIMARY KEY,
   "name" varchar NOT NULL,
   "disabled" boolean,
-  "created_at" date NOT NULL,
-  "updated_at" date NOT NULL,
-  "deleted_at" boolean,
+  "created_at" timestamp NOT NULL DEFAULT now(),
+  "updated_at" timestamp NOT NULL DEFAULT now(),
+  "deleted_at" timestamp,
   "workouts_code" int
 );
 
@@ -43,9 +43,9 @@ CREATE TABLE "workouts" (
   "rest_time" int,
   "weight" float,
   "cadence" varchar,
-  "created_at" date NOT NULL,
-  "updated_at" date NOT NULL,
-  "deleted_at" boolean
+  "created_at" timestamp NOT NULL DEFAULT now(),
+  "updated_at" timestamp NOT NULL DEFAULT now(),
+  "deleted_at" timestamp
 );
 
 CREATE TABLE "equipment" (
