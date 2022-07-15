@@ -8,11 +8,11 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func HashPassword(password string) (string, error) {
+func HashPassword(password string) (string, *utils.Error) {
 	bcost, err := strconv.Atoi(os.Getenv("BCRYPT_COST"))
 
 	if err != nil {
-		return "", utils.Throw(err, 404)
+		return "", utils.Throw(err.Error(), 500)
 	}
 
 	hash, err := bcrypt.GenerateFromPassword(
@@ -21,7 +21,7 @@ func HashPassword(password string) (string, error) {
 	)
 
 	if err != nil {
-		return "", err
+		return "", utils.Throw(err.Error(), 500)
 	}
 
 	return string(hash), nil
