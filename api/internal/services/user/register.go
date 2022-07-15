@@ -3,6 +3,7 @@ package userService
 import (
 	"gymn/internal/dto"
 	"gymn/internal/exceptions"
+	"gymn/internal/models"
 	userRepository "gymn/internal/repository/user"
 	"gymn/internal/security"
 	"gymn/internal/utils"
@@ -20,11 +21,28 @@ func RegisterUser(data *schemas.User) (*dto.UserDTO, *utils.Error) {
 		return nil, utils.Throw(exceptions.ErrUserAlreadyExists, 400)
 	}
 
-	hashedPassowrd, err := security.HashPassword(data.Password)
+	hashedPassword, err := security.HashPassword(data.Password)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return nil, nil
+	user := &models.User{
+		Name:        data.Name,
+		Email:       data.Email,
+		Password:    hashedPassword,
+		Is_personal: data.IsPersonal,
+	}
+
+	err = userRepository.CreateUser(user)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &dto.UserDTO{
+		Name:        user.Email,
+		Email:       user.Email,
+		Is_personal: user.Is_personal,
+	}, nil
 }
