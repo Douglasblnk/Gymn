@@ -10,6 +10,15 @@ CREATE TABLE "users" (
   "deleted_at" timestamp
 );
 
+CREATE TABLE "sessions" (
+	"id" SERIAL PRIMARY KEY,
+	"user_id" int,
+	"refresh_token" character varying NOT NULL UNIQUE,
+	"created_at" timestamp NOT NULL DEFAULT now(),
+	"updated_at" timestamp NOT NULL DEFAULT now(),
+	"deleted_at" timestamp
+);
+
 CREATE TABLE "user_student" (
   "user_id" int,
   "student_id" int,
@@ -82,8 +91,8 @@ ALTER TABLE "training_sheets_workouts" ADD FOREIGN KEY ("training_sheet_id") REF
 
 ALTER TABLE "training_sheets_workouts" ADD FOREIGN KEY ("workout_id") REFERENCES "workouts" ("id");
 
-ALTER TABLE "students" ADD FOREIGN KEY ("training_sheets_code") REFERENCES "training_sheets" ("id");
+ALTER TABLE "training_sheets" ADD FOREIGN KEY ("workouts_code") REFERENCES "workouts" ("id")
 
-ALTER TABLE "training_sheets" ADD FOREIGN KEY ("workouts_code") REFERENCES "workouts" ("id");
+ALTER TABLE "equipment" ADD FOREIGN KEY ("id") REFERENCES "workouts" ("equipment")
 
-ALTER TABLE "equipment" ADD FOREIGN KEY ("id") REFERENCES "workouts" ("equipment");
+ALTER TABLE "sessions" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id")

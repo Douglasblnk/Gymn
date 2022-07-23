@@ -1,26 +1,25 @@
 package authService
 
 import (
-	"gymn/internal/dto"
+	"gymn/internal/exceptions"
+	"gymn/internal/models"
+	userRepository "gymn/internal/repository/user"
+	"gymn/internal/security"
+	"gymn/internal/utils"
 )
 
-func ValidateUser(email string, password string) (*dto.UserDTO, error) {
-	// user, err := userRepository.FindUserByUsername(email)
+func ValidateUser(email string, password string) (*models.User, *utils.Error) {
+	user, err := userRepository.FindUserByEmail(email)
 
-	// if err != nil {
-	// 	return nil, err
-	// }
+	if err != nil {
+		return nil, err
+	}
 
-	// passwordMatches := securityUtils.CompareHash(user.Password, password)
+	passwordMatches := security.CompareHash(user.Password, password)
 
-	// if !passwordMatches {
-	// 	return nil, exceptions.ErrAuthorizationFailed
-	// }
+	if !passwordMatches {
+		return nil, utils.Throw(exceptions.ErrAuthorizationFailed, 401)
+	}
 
-	// userDTO := &dto.UserDTO{
-	// 	Name:     user.Name,
-	// 	Username: user.Username,
-	// }
-
-	return nil, nil
+	return user, nil
 }
