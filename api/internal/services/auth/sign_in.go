@@ -1,19 +1,24 @@
 package authService
 
 import (
+	"fmt"
 	"gymn/internal/dto"
+	"gymn/internal/utils"
 	"gymn/v1/schemas"
 )
 
-func SignIn(data *schemas.Login) (*dto.SignInResponseDTO, error) {
-	// user, err := ValidateUser(data.Email, data.Password)
+func SignIn(data *schemas.Login) (*dto.SignInResponseDTO, *utils.Error) {
+	user, err := ValidateUser(data.Email, data.Password)
 
-	// if err != nil {
-	// 	return nil, err
-	// }
+	if err != nil {
+		return nil, err
+	}
 
-	// session, err := CreateSession(user.Username)
+	fmt.Println("user", user)
 
+	session, err := CreateSession(user.ID)
+
+	fmt.Println("session", session)
 	// if err != nil {
 	// 	return nil, err
 	// }

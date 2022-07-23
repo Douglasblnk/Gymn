@@ -1,6 +1,6 @@
 package models
 
 type Session struct {
-	UserID       string
+	UserID       int
 	RefreshToken string
 }

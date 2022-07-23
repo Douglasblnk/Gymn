@@ -7,8 +7,22 @@ CREATE TABLE "users" (
   "photo" varchar,
   "created_at" timestamp NOT NULL DEFAULT now(),
   "updated_at" timestamp NOT NULL DEFAULT now(),
-  "deleted_at" timestamp,
-  "student_code" int
+  "deleted_at" timestamp
+);
+
+CREATE TABLE "sessions" (
+	"id" SERIAL PRIMARY KEY,
+	"user_id" int,
+	"refresh_token" character varying NOT NULL UNIQUE,
+	"created_at" timestamp NOT NULL DEFAULT now(),
+	"updated_at" timestamp NOT NULL DEFAULT now(),
+	"deleted_at" timestamp
+);
+
+CREATE TABLE "user_student" (
+  "id" SERIAL PRIMARY KEY,
+  "user_id" int NOT NULL,
+  "student_id" int NOT NULL
 );
 
 CREATE TABLE "students" (
@@ -53,10 +67,16 @@ CREATE TABLE "equipment" (
   "name" varchar
 );
 
-ALTER TABLE "users" ADD FOREIGN KEY ("student_code") REFERENCES "students" ("id");
+ALTER TABLE "users" ADD FOREIGN KEY ("student_code") REFERENCES "students" ("id")
 
-ALTER TABLE "students" ADD FOREIGN KEY ("training_sheets_code") REFERENCES "training_sheets" ("id");
+ALTER TABLE "user_student" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id")
 
-ALTER TABLE "training_sheets" ADD FOREIGN KEY ("workouts_code") REFERENCES "workouts" ("id");
+ALTER TABLE "user_student" ADD FOREIGN KEY ("student_id") REFERENCES "students" ("id")
 
-ALTER TABLE "equipment" ADD FOREIGN KEY ("id") REFERENCES "workouts" ("equipment");
+ALTER TABLE "students" ADD FOREIGN KEY ("training_sheets_code") REFERENCES "training_sheets" ("id")
+
+ALTER TABLE "training_sheets" ADD FOREIGN KEY ("workouts_code") REFERENCES "workouts" ("id")
+
+ALTER TABLE "equipment" ADD FOREIGN KEY ("id") REFERENCES "workouts" ("equipment")
+
+ALTER TABLE "sessions" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id")
