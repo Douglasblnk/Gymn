@@ -1,5 +1,6 @@
 CREATE TABLE "users" (
   "id" SERIAL PRIMARY KEY,
+  "uid" uuid NOT NULL DEFAULT gen_random_uuid(),
   "name" varchar NOT NULL,
   "email" varchar NOT NULL UNIQUE,
   "password" varchar NOT NULL,
@@ -12,7 +13,8 @@ CREATE TABLE "users" (
 
 CREATE TABLE "sessions" (
 	"id" SERIAL PRIMARY KEY,
-	"user_id" int,
+  "uid" uuid NOT NULL DEFAULT gen_random_uuid(),
+	"user_id" int NOT NULL,
 	"refresh_token" character varying NOT NULL UNIQUE,
 	"created_at" timestamp NOT NULL DEFAULT now(),
 	"updated_at" timestamp NOT NULL DEFAULT now(),
@@ -27,6 +29,7 @@ CREATE TABLE "user_student" (
 
 CREATE TABLE "students" (
   "id" SERIAL PRIMARY KEY,
+  "uid" uuid NOT NULL DEFAULT gen_random_uuid(),
   "name" varchar NOT NULL,
   "code" varchar NOT NULL,
   "weight" varchar NOT NULL,
@@ -45,6 +48,7 @@ CREATE TABLE "student_training_sheets" (
 
 CREATE TABLE "training_sheets" (
   "id" SERIAL PRIMARY KEY,
+  "uid" uuid NOT NULL DEFAULT gen_random_uuid(),
   "name" varchar NOT NULL,
   "disabled" boolean,
   "created_at" timestamp NOT NULL DEFAULT now(),
@@ -61,6 +65,7 @@ CREATE TABLE "training_sheets_workouts" (
 
 CREATE TABLE "workouts" (
   "id" SERIAL PRIMARY KEY,
+  "uid" uuid NOT NULL DEFAULT gen_random_uuid(),
   "exercise" varchar NOT NULL,
   "equipment" int,
   "description" varchar,
@@ -76,6 +81,7 @@ CREATE TABLE "workouts" (
 
 CREATE TABLE "equipment" (
   "id" SERIAL PRIMARY KEY,
+  "uid" uuid NOT NULL DEFAULT gen_random_uuid(),
   "name" varchar
 );
 
@@ -91,8 +97,8 @@ ALTER TABLE "training_sheets_workouts" ADD FOREIGN KEY ("training_sheet_id") REF
 
 ALTER TABLE "training_sheets_workouts" ADD FOREIGN KEY ("workout_id") REFERENCES "workouts" ("id");
 
-ALTER TABLE "training_sheets" ADD FOREIGN KEY ("workouts_code") REFERENCES "workouts" ("id")
+ALTER TABLE "training_sheets" ADD FOREIGN KEY ("workouts_code") REFERENCES "workouts" ("id");
 
-ALTER TABLE "equipment" ADD FOREIGN KEY ("id") REFERENCES "workouts" ("equipment")
+ALTER TABLE "equipment" ADD FOREIGN KEY ("id") REFERENCES "workouts" ("equipment");
 
-ALTER TABLE "sessions" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id")
+ALTER TABLE "sessions" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");

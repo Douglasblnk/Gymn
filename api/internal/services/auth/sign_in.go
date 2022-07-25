@@ -18,22 +18,25 @@ func SignIn(data *schemas.Login) (*dto.SignInResponseDTO, *utils.Error) {
 
 	session, err := CreateSession(user.ID)
 
-	fmt.Println("session", session)
-	// if err != nil {
-	// 	return nil, err
-	// }
+	if err != nil {
+		return nil, err
+	}
 
-	// accessToken, err := CreateAccessToken(session.RefreshToken)
+	accessToken, err := CreateAccessToken(session.RefreshToken)
 
-	// if err != nil {
-	// 	return nil, err
-	// }
+	if err != nil {
+		return nil, err
+	}
 
-	// response := &dto.SignInResponseDTO{
-	// 	AccessToken:  accessToken,
-	// 	RefreshToken: session.RefreshToken,
-	// 	User:         user,
-	// }
+	response := &dto.SignInResponseDTO{
+		AccessToken:  accessToken,
+		RefreshToken: session.RefreshToken,
+		User: &dto.UserDTO{
+			Name:        user.Name,
+			Email:       user.Email,
+			Is_personal: user.Is_personal,
+		},
+	}
 
-	return nil, nil
+	return response, nil
 }

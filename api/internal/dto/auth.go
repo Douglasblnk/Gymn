@@ -1,9 +1,19 @@
 package dto
 
-import "gymn/internal/models"
+import "time"
+
+type AccessToken struct {
+	Token      string
+	Expiration time.Time
+}
 
 type SignInResponseDTO struct {
-	AccessToken  *models.AccessToken
+	AccessToken  *AccessToken
 	RefreshToken string
 	User         *UserDTO
+}
+
+type RefreshAccessTokenDTO struct {
+	AccessToken  *AccessToken
+	RefreshToken string
 }

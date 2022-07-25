@@ -1,19 +1,15 @@
 package authService
 
 import (
-	"gymn/internal/database"
 	"gymn/internal/models"
+	authRepository "gymn/internal/repository/auth"
 	"gymn/internal/utils"
 	"os"
 	"strconv"
 )
 
 func CreateSession(userId int) (*models.Session, *utils.Error) {
-	refreshTokenLength, err := strconv.ParseInt(os.Getenv("REFRESH_TOKEN_LENGTH"), 10, 64)
-
-	if err != nil {
-		return nil, utils.Throw(err.Error(), 500)
-	}
+	refreshTokenLength, _ := strconv.ParseInt(os.Getenv("REFRESH_TOKEN_LENGTH"), 10, 64)
 
 	refreshToken := utils.GenerateRandomText(refreshTokenLength)
 
@@ -22,8 +18,8 @@ func CreateSession(userId int) (*models.Session, *utils.Error) {
 		RefreshToken: refreshToken,
 	}
 
-	if err := database.DB.Select("*").Create(session).Error; err != nil {
-		return nil, utils.Throw(err.Error(), 500)
+	if err := authRepository.CreateSession(session); err != nil {
+		return nil, err
 	}
 
 	return session, nil
