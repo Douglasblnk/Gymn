@@ -3,7 +3,6 @@ package userService
 import (
 	"gymn/internal/dto"
 	"gymn/internal/exceptions"
-	storageProvider "gymn/internal/providers/storage"
 	userRepository "gymn/internal/repository/user"
 	"gymn/internal/security"
 	"gymn/internal/utils"
@@ -45,32 +44,32 @@ func UpdateUser(id string, data *schemas.UpdateUser) (*dto.UserDTO, *utils.Error
 		user.Password = hashedPassword
 	}
 
-	if data.Photo != nil {
-		pictureKey, err := storageProvider.SaveFile(data.Photo, "user")
+	// if data.Photo != nil {
+	// 	pictureKey, err := storageProvider.SaveFile(data.Photo, "user")
 
-		if err != nil {
-			return nil, err
-		}
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
 
-		if user.Photo != nil {
-			if err = storageProvider.DeleteFile(user.Photo); err != nil {
-				return nil, err
-			}
-		}
+	// 	if user.Photo != nil {
+	// 		if err = storageProvider.DeleteFile(user.Photo); err != nil {
+	// 			return nil, err
+	// 		}
+	// 	}
 
-		user.Photo = &pictureKey
-	}
+	// 	user.Photo = &pictureKey
+	// }
 
 	if data.IsPersonal != nil {
 		user.Is_personal = *data.IsPersonal
 	}
 
-	// if err := database.DB.Save(user).Error; err != nil {
-	// 	return nil, err
-	// }
+	if err = userRepository.UpdateUser(user); err != nil {
+		return nil, err
+	}
 
 	return &dto.UserDTO{
-		Name:        user.Email,
+		Name:        user.Name,
 		Email:       user.Email,
 		Is_personal: user.Is_personal,
 		Photo:       user.Photo,
