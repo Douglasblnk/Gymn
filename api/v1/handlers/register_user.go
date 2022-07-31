@@ -9,7 +9,7 @@ import (
 )
 
 func RegisterUser(c *fiber.Ctx) error {
-	userSchema := new(schemas.User)
+	userSchema := new(schemas.RegisterUser)
 
 	if err := utils.GetBody(userSchema, c); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(err)
