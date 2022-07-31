@@ -10,7 +10,7 @@ import (
 	"gymn/v1/schemas"
 )
 
-func RegisterUser(data *schemas.User) (*dto.UserDTO, *utils.Error) {
+func RegisterUser(data *schemas.RegisterUser) (*dto.UserDTO, *utils.Error) {
 	userWithSameEmail, err := userRepository.FindUserByEmail(data.Email)
 
 	if err != nil && err.Error != exceptions.ErrUserNotFound {
@@ -31,7 +31,7 @@ func RegisterUser(data *schemas.User) (*dto.UserDTO, *utils.Error) {
 		Name:        data.Name,
 		Email:       data.Email,
 		Password:    hashedPassword,
-		Is_personal: data.IsPersonal,
+		Is_personal: *data.IsPersonal,
 	}
 
 	err = userRepository.CreateUser(user)
