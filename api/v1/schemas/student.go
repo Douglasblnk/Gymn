@@ -5,6 +5,7 @@ type RegisterStudent struct {
 	LastName  string  `json:"lastName" validate:"required"`
 	Birth     *string `json:"birth"`
 	Color     *string `json:"color"`
+	StartDate *string `json:"startDate"`
 	Weight    string  `json:"weight" validate:"required"`
 	Height    string  `json:"height" validate:"required"`
 }
@@ -14,6 +15,7 @@ type UpdateStudent struct {
 	LastName  *string `json:"lastName"`
 	Birth     *string `json:"birth"`
 	Color     *string `json:"color"`
+	StartDate *string `json:"startDate"`
 	Weight    *string `json:"weight"`
 	Height    *string `json:"height"`
 }
