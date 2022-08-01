@@ -1,9 +1,17 @@
 package schemas
 
-type User struct {
-	Name       string `json:"name" validate:"required"`
-	Email      string `json:"email" validate:"required"`
-	Password   string `json:"password" validate:"required"`
-	IsPersonal bool   `json:"isPersonal"`
-	Photo      string `json:"photo"`
+type RegisterUser struct {
+	Name       string  `json:"name" validate:"required"`
+	Email      string  `json:"email" validate:"email,required"`
+	Password   string  `json:"password" validate:"required"`
+	IsPersonal *bool   `json:"isPersonal"`
+	Photo      *string `json:"photo"`
+}
+
+type UpdateUser struct {
+	Name       *string `json:"name"`
+	Email      *string `json:"email" validate:"email"`
+	Password   *string `json:"password"`
+	IsPersonal *bool   `json:"isPersonal"`
+	Photo      *string `json:"photo"`
 }

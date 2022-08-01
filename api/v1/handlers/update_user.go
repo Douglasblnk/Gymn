@@ -8,14 +8,15 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func RegisterUser(c *fiber.Ctx) error {
-	userSchema := new(schemas.RegisterUser)
+func UpdateUser(c *fiber.Ctx) error {
+	userSchema := new(schemas.UpdateUser)
+	userId := c.Params("id")
 
 	if err := utils.GetBody(userSchema, c); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(err)
 	}
 
-	response, err := userService.RegisterUser(userSchema)
+	response, err := userService.UpdateUser(userId, userSchema)
 
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(err)

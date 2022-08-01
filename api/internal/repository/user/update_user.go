@@ -6,8 +6,8 @@ import (
 	"gymn/internal/utils"
 )
 
-func CreateUser(user *models.User) *utils.Error {
-	if err := database.DB.Select("*").Create(user).Error; err != nil {
+func UpdateUser(user *models.User) *utils.Error {
+	if err := database.DB.Save(user).Error; err != nil {
 		return utils.Throw(err.Error(), 400)
 	}
 
