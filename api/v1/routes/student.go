@@ -8,4 +8,5 @@ import (
 
 func StudentRoutes(app *fiber.App) {
 	app.Post("/create-student", handlers.CreateStudent)
+	app.Get("/get-student-code/:id", handlers.GetStudentCode)
 }
