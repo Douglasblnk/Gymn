@@ -31,7 +31,7 @@ func RegisterUser(data *schemas.RegisterUser) (*dto.UserDTO, *utils.Error) {
 		Name:        data.Name,
 		Email:       data.Email,
 		Password:    hashedPassword,
-		Is_personal: *data.IsPersonal,
+		Is_personal: data.IsPersonal,
 	}
 
 	err = userRepository.CreateUser(user)
