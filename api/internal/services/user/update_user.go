@@ -61,7 +61,7 @@ func UpdateUser(id string, data *schemas.UpdateUser) (*dto.UserDTO, *utils.Error
 	// }
 
 	if data.IsPersonal != nil {
-		user.Is_personal = *data.IsPersonal
+		user.Is_personal = data.IsPersonal
 	}
 
 	if err = userRepository.UpdateUser(user); err != nil {

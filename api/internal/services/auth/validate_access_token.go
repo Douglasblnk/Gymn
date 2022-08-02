@@ -11,7 +11,7 @@ func ValidateAccessToken(accessToken string) *utils.Error {
 	decrypted, decryptErr := security.DecryptJWT(accessToken)
 
 	if decryptErr != nil {
-		return utils.Throw(decryptErr.Error(), 401)
+		return utils.Throw(exceptions.ErrAuthorizationFailed, 401)
 	}
 
 	sessionUID := decrypted["session_uid"].(string)
