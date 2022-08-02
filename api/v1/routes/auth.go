@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"gymn/v1/handlers"
+	handlers "gymn/v1/handlers/auth"
 
 	"github.com/gofiber/fiber/v2"
 )
