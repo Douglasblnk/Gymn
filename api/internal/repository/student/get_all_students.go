@@ -6,7 +6,7 @@ import (
 	"gymn/internal/utils"
 )
 
-func GetStudents() ([]*models.Student, *utils.Error) {
+func GetAllStudents() ([]*models.Student, *utils.Error) {
 	var students []*models.Student
 
 	query := database.DB.Order("created_at desc")
