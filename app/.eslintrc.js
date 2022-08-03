@@ -1,5 +1,8 @@
 module.exports = {
-  extends: [ '@antfu' ],
+  extends: [
+    'eslint:recommended',
+    'plugin:vue/vue3-strongly-recommended'
+  ],
   rules: {
     'array-bracket-spacing': [ 'error', 'always' ],
     'object-curly-spacing': [ 'error', 'always' ],
