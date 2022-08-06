@@ -9,4 +9,9 @@ import '@/styles/variables.sass'
 
 import App from './App.vue'
 
-createApp(App).mount('#app')
+import createRouterInstance from '@/routes'
+
+const router = createRouterInstance()
+const app = createApp(App)
+
+app.use(router).mount('#app')

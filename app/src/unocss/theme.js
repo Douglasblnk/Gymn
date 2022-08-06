@@ -1,8 +1,3 @@
-/* eslint-disable arrow-parens */
-/* eslint-disable max-len */
-/* eslint-disable key-spacing */
-/* eslint-disable no-multi-spaces */
-
 /**
  * @typedef { import("@unocss/preset-uno/dist/theme") } BaseTheme
  */
@@ -47,7 +42,7 @@ export default {
   /* ---------------------------------------- */
   // https://windicss.org/utilities/colors.html#customization
   colors: {
-    background: '#2C2D30',
+    background: '#282A37',
     transparent: 'transparent',
     black: '#000',
     white: '#fff',
@@ -65,8 +60,8 @@ export default {
     info: '#31CCEC',
     warning: '#F2C037',
 
-    primary: '#4599C8',
-    secondary: '#A4C2E4',
+    primary: '#5B49CD',
+    secondary: '#4286C6',
     ascendent: '#3D3E43',
   },
 

@@ -5,19 +5,26 @@
 
 @font-face
   font-family: 'Nunito'
+  src: url('../assets/fonts/Nunito-BoldItalic') format("truetype")
+  font-weight: 900
+
+@font-face
+  font-family: 'Nunito'
   src: url('../assets/fonts/Nunito-ExtraBold.ttf') format("truetype")
   font-weight: 900
 
 html
+  font-synthesis: none
+  text-rendering: optimizeLegibility
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
+  -webkit-text-size-adjust: 100%
+
   box-sizing: border-box
   margin: 0
   padding: 0
-
-span, p, strong, small, h1, h2, h3, h4, h5
   font-family: 'Nunito'
-
+  
 body
   width: 100%
   min-width: 320px

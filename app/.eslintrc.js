@@ -1,7 +1,7 @@
 module.exports = {
   extends: [
-    'eslint:recommended',
-    'plugin:vue/vue3-strongly-recommended'
+    '@antfu',
+    '.eslintrc-auto-import.json',
   ],
   rules: {
     'array-bracket-spacing': [ 'error', 'always' ],
@@ -18,6 +18,14 @@ module.exports = {
       functions: 'always-multiline',
     } ],
     'max-len': 'off',
+    'vue/max-attributes-per-line': [ 'error', {
+      singleline: {
+        max: 1,
+      },
+      multiline: {
+        max: 1,
+      },
+    } ],
   },
   globals: {
     defineProps: 'readonly',
