@@ -62,6 +62,7 @@ const inputRef = ref()
         ref="inputRef"
         v-model="model"
         un-p="t-7 b-3 x-6"
+        un-w-full
         un-outline-none
         un-text-white
         un-font-bold
