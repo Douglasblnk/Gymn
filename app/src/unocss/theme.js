@@ -47,6 +47,8 @@ export default {
     black: '#000',
     white: '#fff',
     gray: {
+      bg: '#333645',
+      text: '#9c9ca4',
       50: '#f2f2f2',
       100: '#e8e8e8',
       200: '#d5d5d5',
