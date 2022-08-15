@@ -15,7 +15,9 @@ func CreateStudent(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(err)
 	}
 
-	response, err := studentService.CreateStudent(studentSchema)
+	userID := c.Locals("userID").(int)
+
+	response, err := studentService.CreateStudent(userID, studentSchema)
 
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(err)

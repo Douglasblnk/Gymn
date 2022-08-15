@@ -14,6 +14,7 @@ type User struct {
 	Password    string         `gorm:"not null"`
 	Is_personal *bool          `gorm:"default:FALSE;not null"`
 	Photo       *string        ``
+	Students    []*Student     `gorm:"foreignKey:UserID"`
 	CreatedAt   time.Time      `gorm:"default:now();not null"`
 	UpdatedAt   time.Time      `gorm:"default:now();not null"`
 	DeletedAt   gorm.DeletedAt ``

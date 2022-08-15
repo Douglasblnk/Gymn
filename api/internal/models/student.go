@@ -9,6 +9,7 @@ import (
 type Student struct {
 	ID        int            `gorm:"<-:false;primaryKey;autoIncrement;not null"`
 	UID       string         `gorm:"<-:false;unique;default:gen_random_uuid();not null"`
+	UserID    int            `gorm:"not null"`
 	FirstName string         `gorm:"not null"`
 	LastName  string         `gorm:"not null"`
 	Birth     *string        ``
