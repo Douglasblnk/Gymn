@@ -7,10 +7,10 @@ import (
 	"gymn/internal/utils"
 )
 
-func GetStudentByUID(uid string) (*models.Student, *utils.Error) {
+func GetStudentByUID(userID int, uid string) (*models.Student, *utils.Error) {
 	student := &models.Student{}
 
-	if err := database.DB.Where("uid = ?", uid).First(student).Error; err != nil {
+	if err := database.DB.Where("uid = ? AND user_id = ?", uid, userID).First(student).Error; err != nil {
 		return nil, utils.Throw(exceptions.ErrStudentNotFound, 404)
 	}
 

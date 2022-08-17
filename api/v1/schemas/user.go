@@ -10,7 +10,7 @@ type RegisterUser struct {
 
 type UpdateUser struct {
 	Name       *string `json:"name"`
-	Email      *string `json:"email" validate:"email"`
+	Email      *string `json:"email"`
 	Password   *string `json:"password"`
 	IsPersonal *bool   `json:"isPersonal"`
 	Photo      *string `json:"photo"`

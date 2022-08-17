@@ -6,8 +6,8 @@ import (
 	"gymn/internal/utils"
 )
 
-func GetStudent(id string) (*dto.StudentDTO, *utils.Error) {
-	student, err := studentRepository.GetStudentByUID(id)
+func GetStudent(userID int, id string) (*dto.StudentDTO, *utils.Error) {
+	student, err := studentRepository.GetStudentByUID(userID, id)
 
 	if err != nil {
 		return nil, err
