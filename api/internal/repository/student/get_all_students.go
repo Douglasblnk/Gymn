@@ -6,12 +6,12 @@ import (
 	"gymn/internal/utils"
 )
 
-func GetAllStudents() ([]*models.Student, *utils.Error) {
+func GetAllStudents(userID int) ([]*models.Student, *utils.Error) {
 	var students []*models.Student
 
 	query := database.DB.Order("created_at desc")
 
-	if err := query.Find(&students).Error; err != nil {
+	if err := query.Where("user_id = ?", userID).Find(&students).Error; err != nil {
 		return nil, utils.Throw(err.Error(), 400)
 	}
 

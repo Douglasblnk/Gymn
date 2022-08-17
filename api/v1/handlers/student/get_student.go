@@ -8,8 +8,9 @@ import (
 
 func GetStudent(c *fiber.Ctx) error {
 	studentID := c.Params("id")
+	userID := c.Locals("userID").(int)
 
-	response, err := studentService.GetStudent(studentID)
+	response, err := studentService.GetStudent(userID, studentID)
 
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(err)

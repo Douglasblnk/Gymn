@@ -6,8 +6,8 @@ import (
 	"gymn/internal/utils"
 )
 
-func CreateStudent(student *models.Student) *utils.Error {
-	if err := database.DB.Select("*").Create(student).Error; err != nil {
+func CreateStudent(user *models.User, student *models.Student) *utils.Error {
+	if err := database.DB.Model(user).Association("Students").Append(student); err != nil {
 		return utils.Throw(err.Error(), 404)
 	}
 

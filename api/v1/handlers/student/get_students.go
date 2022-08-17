@@ -7,12 +7,13 @@ import (
 )
 
 func GetStudents(c *fiber.Ctx) error {
-	response, err := studentService.GetStudents()
+	userID := c.Locals("userID").(int)
+
+	response, err := studentService.GetStudents(userID)
 
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(err)
 	}
 
 	return c.Status(fiber.StatusOK).JSON(response)
-
 }

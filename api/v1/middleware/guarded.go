@@ -10,11 +10,13 @@ import (
 func JWTAuth(c *fiber.Ctx) error {
 	authorization := utils.GetAuthorization(c)
 
-	err := authService.ValidateAccessToken(authorization)
+	session, err := authService.ValidateAccessToken(authorization)
 
 	if err != nil {
 		return c.Status(fiber.StatusUnauthorized).JSON(err)
 	}
+
+	c.Locals("userID", session.UserID)
 
 	return c.Next()
 }
