@@ -44,7 +44,7 @@ CREATE TABLE "training_sheets" (
   "id" SERIAL PRIMARY KEY,
   "uid" uuid NOT NULL DEFAULT gen_random_uuid(),
   "name" VARCHAR NOT NULL,
-  "disabled" BOOLEAN,
+  "active" BOOLEAN DEFAULT true,
   "created_at" TIMESTAMP NOT NULL DEFAULT now(),
   "updated_at" TIMESTAMP NOT NULL DEFAULT now(),
   "deleted_at" TIMESTAMP

@@ -8,6 +8,10 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+func TrainingSheetRoutes(app *fiber.App) {
+	app.Post("/create-training-sheet", middleware.JWTAuth, studentHandlers.CreateStudent)
+}
+
 func StudentRoutes(app *fiber.App) {
 	app.Post("/create-student", middleware.JWTAuth, studentHandlers.CreateStudent)
 	app.Put("/update-student/:id", middleware.JWTAuth, studentHandlers.UpdateStudent)
