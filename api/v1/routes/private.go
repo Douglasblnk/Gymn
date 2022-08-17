@@ -11,6 +11,7 @@ import (
 func StudentRoutes(app *fiber.App) {
 	app.Post("/create-student", middleware.JWTAuth, studentHandlers.CreateStudent)
 	app.Put("/update-student/:id", middleware.JWTAuth, studentHandlers.UpdateStudent)
+	app.Delete("/delete-student/:id", middleware.JWTAuth, studentHandlers.DeleteStudent)
 	app.Get("/get-student-code/:id", middleware.JWTAuth, studentHandlers.GetStudentCode)
 	app.Get("/get-students", middleware.JWTAuth, studentHandlers.GetStudents)
 	app.Get("/get-student/:id", middleware.JWTAuth, studentHandlers.GetStudent)
