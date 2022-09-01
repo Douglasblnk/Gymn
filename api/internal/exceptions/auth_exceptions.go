@@ -1,4 +1,4 @@
 package exceptions
 
-var ErrAuthorizationFailed = "authorization failed"
-var ErrSessionNotFound = "session not found"
+var ErrAuthorizationFailed = "falha na autenticação"
+var ErrSessionNotFound = "sessão não encontrada"

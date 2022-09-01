@@ -1,6 +1,7 @@
 import routes from 'virtual:generated-pages'
 import { createRouter, createWebHistory } from 'vue-router'
 
+const { setRouteTransition } = useRouteTransition()
 // import {
 //   getToken,
 //   removeToken,
@@ -54,6 +55,14 @@ export default function createRouterInstance() {
   const router = createRouter({
     history: createWebHistory(),
     routes,
+  })
+
+  router.beforeEach((to) => {
+    const { transition } = to.meta
+
+    setRouteTransition(transition)
+
+    if (to.path === '/') { return '/login' }
   })
 
   // replace.value = router.replace

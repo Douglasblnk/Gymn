@@ -1,25 +1,103 @@
 {
-  "eslint.format.enable": true,
-  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-  "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
-  "editor.formatOnType": true,
-  "editor.quickSuggestions": {
-    "strings": true
-  },
-  "files.exclude": {
-    "**/node_modules": true
-  },
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+  "[json]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[typescript]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
   "[vue]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
-  "[go]": {
-   "editor.defaultFormatter": null
+  "colorize.languages": [
+    "javascript",
+    "typescript",
+    "css",
+    "vue"
+  ],
+  "cSpell.diagnosticLevel": "Hint",
+  "cSpell.language": "en,pt_BR",
+  "cSpell.words": [
+  ],
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "stylelint.enable": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": true,
+    "source.fixAll.eslint": true,
+    "source.organizeImports": false,
+    "source.fixAll.markdownlint": true,
+  },
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": false,
+  "editor.formatOnType": false,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "eslint.alwaysShowStatus": true,
+  "eslint.format.enable": true,
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "vue",
+  ],
+  "extensions.ignoreRecommendations": true,
+  "files.associations": {
+    "*.css": "postcss",
+    ".husky/commit-msg": "shellscript",
+    ".husky/pre-commit": "shellscript",
+    ".husky/pre-push": "shellscript",
+    ".importsortrc": "json",
+    ".markdownlintignore": "ignore"
+  },
+  "files.trimTrailingWhitespace": true,
+  "git.autorefresh": true,
+  "git.ignoreLimitWarning": true,
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.localesPaths": "locales",
+  "i18n-ally.sortKeys": true,
+  "json.format.enable": true,
+  "npm.packageManager": "pnpm",
+  "stylelint.packageManager": "pnpm",
+  "prettier.enable": false,
+  "stylelint.validate": [
+    "javascript",
+    "typescript",
+    "vue"
+  ],
+  "typescript.surveys.enabled": false,
+  "volar.autoCompleteRefs": false,
+  "volar.codeLens.pugTools": false,
+  "volar.codeLens.references": false,
+  "volar.codeLens.scriptSetupTools": false,
+  "material-icon-theme.activeIconPack": "vue",
+  "material-icon-theme.files.associations": {
+    "vite.config.*.js": "vite",
+    "vite.config.*.mjs": "vite",
+    "vite.config.*.cjs": "vite",
+    "vite.config.*.ts": "vite"
+  },
+
+  "turboConsoleLog.quote": "'",
+  "editor.tabSize": 2,
+  "volar.completion.preferredAttrNameCase": "kebab",
+  "volar.completion.preferredTagNameCase": "pascal",
+  "volar.completion.autoImportComponent": false,
+  "todo-tree.general.tags": [
+    "BUG",
+    "HACK",
+    "FIXME",
+    "TODO",
+    "XXX",
+    "[ ]",
+    "[x]"
+  ],
+  "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
+  "[jsonc]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
 }

@@ -1,7 +1,6 @@
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import fg from 'fast-glob'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Pages from 'vite-plugin-pages'
@@ -28,29 +27,16 @@ export default defineConfig({
     vue(),
 
     Pages({
-      extendRoute(route) {
-        const { path } = route
-
-        if (path === '/')
-          return route
-
-        return {
-          ...route,
-          meta: { auth: true },
-        }
-      },
+      dirs: [ { dir: 'src/pages', baseRoute: '' } ],
     }),
 
     AutoImport({
-      include: [
-        /\.vue\??/, // .vue
-      ],
       imports: [
         'vue',
         'vue-router',
         'vue/macros',
       ],
-      dirs: fg.sync('src/**/composables', { onlyDirectories: true }),
+      dirs: [ 'src/composables/**' ],
       vueTemplate: true,
       eslintrc: {
         enabled: true,
@@ -72,7 +58,7 @@ export default defineConfig({
     }),
 
     Components({
-      dirs: [ './src/components/**' ],
+      dirs: [ 'src/components/**' ],
       resolvers: [
         IconsResolver(),
       ],
@@ -85,7 +71,4 @@ export default defineConfig({
 
     Unocss(),
   ],
-  server: {
-    port: 3000,
-  },
 })

@@ -18,16 +18,15 @@ const noTransparency = [
 const flattenObj = (ob, separator = '.') => {
   const result = {}
 
-  for (const i in ob)
-    if ((typeof ob[ i ]) === 'object' && !Array.isArray(ob[ i ])) {
-      const temp = flattenObj(ob[ i ], separator)
+  for (const i in ob) {
+    if ((typeof ob[i]) === 'object' && !Array.isArray(ob[i])) {
+      const temp = flattenObj(ob[i], separator)
 
-      for (const j in temp)
-        result[ `${ i }${ separator }${ j }` ] = temp[ j ]
+      for (const j in temp) { result[`${i}${separator}${j}`] = temp[j] }
     }
 
-    else
-      result[ i ] = ob[ i ]
+    else { result[i] = ob[i] }
+  }
 
   return result
 }
@@ -45,7 +44,7 @@ export const colors = [
         const unoColorsFlat = flattenObj(unoTheme.colors, '-')
 
         const colorsMap = Object.keys(colorsFlat).filter((name) => {
-          return safelist.includes(name) || unoColorsFlat[ name ] !== colorsFlat[ name ]
+          return safelist.includes(name) || unoColorsFlat[name] !== colorsFlat[name]
         })
 
         colorsMap.forEach((name) => {
@@ -53,23 +52,23 @@ export const colors = [
 
           if (typeof bgObj === 'object') {
             const bgObjKeys = Object.keys(bgObj)
-            const bgValue = bgObj[ bgObjKeys[ 1 ] ] || bgObj[ bgObjKeys[ 0 ] ]
+            const bgValue = bgObj[bgObjKeys[1]] || bgObj[bgObjKeys[0]]
 
             name = name.replace('-DEFAULT', '')
-            colorVars += `  --color-${ name }: ${ bgValue };\n`
+            colorVars += `  --color-${name}: ${bgValue};\n`
 
-            colorClass += `.bg-${ name } {\n`
+            colorClass += `.bg-${name} {\n`
             colorClass += noTransparency.includes(name) ? '' : '  --un-bg-opacity: 1;\n'
-            colorClass += `  background: ${ bgValue };\n`
+            colorClass += `  background: ${bgValue};\n`
             colorClass += '}\n'
 
             const textObj = colorResolver('color', 'text')([ null, name ], { theme })
             const textObjKeys = Object.keys(textObj)
-            const textValue = textObj[ textObjKeys[ 1 ] ] || textObj[ textObjKeys[ 0 ] ]
+            const textValue = textObj[textObjKeys[1]] || textObj[textObjKeys[0]]
 
-            colorClass += `.text-${ name } {\n`
+            colorClass += `.text-${name} {\n`
             colorClass += noTransparency.includes(name) ? '' : '  --un-text-opacity: 1;\n'
-            colorClass += `  color: ${ textValue };\n`
+            colorClass += `  color: ${textValue};\n`
             colorClass += '}\n'
           }
         })

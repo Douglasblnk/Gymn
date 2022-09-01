@@ -1,4 +1,4 @@
 package exceptions
 
-var ErrUserAlreadyExists = "user already exists"
-var ErrUserNotFound = "user not found"
+var ErrUserAlreadyExists = "usuário já existente"
+var ErrUserNotFound = "usuário não encontrado"

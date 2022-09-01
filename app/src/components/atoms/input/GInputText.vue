@@ -18,20 +18,26 @@ const props = defineProps({
   placeholder: String,
   upperLabel: String,
   label: String,
-  errorMsg: String,
   icon: String,
-  error: Boolean,
+  readonly: Boolean,
   clearable: Boolean,
+  errorMsg: String,
+  hideBottomSpace: Boolean,
 })
 
-const emit = defineEmits([ 'update:modelValue' ])
+const emit = defineEmits([ 'update:modelValue', 'clear' ])
+
+const inputRef = ref()
+
+const clearField = () => {
+  emit('update:modelValue', '')
+  emit('clear')
+}
 
 const model = computed({
   get: () => props.modelValue,
   set: value => emit('update:modelValue', value),
 })
-
-const inputRef = ref()
 </script>
 
 <template>
@@ -55,13 +61,15 @@ const inputRef = ref()
       un-rounded-2xl
       un-bg-gray-bg
       un-cursor-text
-      :un-border="error ? '1 solid negative' : 'none'"
+      un-z-1
+      un-transition="duration-500 colors"
+      :un-border="!!errorMsg ? '1 solid negative' : '1 solid transparent'"
       @click="inputRef.focus()"
     >
       <input
-        ref="inputRef"
         v-model="model"
-        un-p="t-7 b-3 x-6"
+        ref="inputRef"
+        un-p="t-6 b-3 x-6"
         un-w-full
         un-outline-none
         un-text-white
@@ -70,6 +78,7 @@ const inputRef = ref()
         un-bg-transparent
         :type="type"
         :placeholder="placeholder"
+        :readonly="readonly"
       >
 
       <label
@@ -88,16 +97,19 @@ const inputRef = ref()
         un-space-x-sm
         un-px-md
       >
-        <GFadeTransition>
+        <Transition
+          name="fade"
+          mode="out-in"
+        >
           <GIcon
             v-if="clearable && model"
             un-text-white
             un-cursor-pointer
             un-text-md
             icon="i-mdi-close"
-            @click.stop="emit('update:modelValue', '')"
+            @click.stop="clearField"
           />
-        </GFadeTransition>
+        </Transition>
 
         <slot name="append" />
 
@@ -109,13 +121,34 @@ const inputRef = ref()
         />
       </div>
     </div>
+
+    <div
+      v-if="!hideBottomSpace"
+      un-ml-lg
+      un-h-5
+      un-flex
+      un-items-center
+    >
+      <Transition
+        name="slide-down"
+        mode="out-in"
+      >
+        <div
+          v-if="!!errorMsg"
+          un-z="-1"
+          un-text="negative sm middle"
+        >
+          {{ errorMsg }}
+        </div>
+      </Transition>
+    </div>
   </div>
 </template>
 
 <style lang="sass">
 .g-input-text
   label
-    transform: translateY(-50%)
+    transform: translateY(-55%)
     transform-origin: left top
     user-select: none
     transition: transform .3s cubic-bezier(0.4, 0, 0.2, 1), color .3s  cubic-bezier(0.4, 0, 0.2, 1), top .3s
@@ -123,8 +156,8 @@ const inputRef = ref()
   input:focus + label
     transition: transform .3s
     color: var(--color-secondary)
-    transform: translateY(-90%) scale(0.75)
+    transform: translateY(-100%) scale(0.75)
 
   &--active
-    transform: translateY(-90%) scale(0.75) !important
+    transform: translateY(-100%) scale(0.75) !important
 </style>

@@ -21,7 +21,7 @@ func EmailValidation(c *fiber.Ctx) error {
 	response, err := authService.ValidateEmail(email.Email)
 
 	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(err)
+		return c.Status(err.StatusCode).JSON(err)
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(response)

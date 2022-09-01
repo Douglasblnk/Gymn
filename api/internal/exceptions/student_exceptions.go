@@ -1,4 +1,4 @@
 package exceptions
 
-var ErrStudentNotFound = "student not found"
-var ErrStudentNotPersonal = "non personal user is not able to create students"
+var ErrStudentNotFound = "estudante não encontrado"
+var ErrStudentNotPersonal = "usuário não personal não pode criar alunos"

@@ -7,13 +7,23 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Alert: typeof import('./components/atoms/Alert.vue')['default']
+    Button: typeof import('./components/atoms/Button.vue')['default']
+    copy: typeof import('./components/atoms/transitions/GFadeTransition copy.vue')['default']
+    GAlert: typeof import('./components/atoms/GAlert.vue')['default']
     GButton: typeof import('./components/atoms/GButton.vue')['default']
-    GFadeTransition: typeof import('./components/atoms/GFadeTransition.vue')['default']
+    GFadeTransition: typeof import('./components/atoms/transitions/GFadeTransition.vue')['default']
     GIcon: typeof import('./components/atoms/GIcon.vue')['default']
-    GInputText: typeof import('./components/atoms/GInputText.vue')['default']
+    GInputPassword: typeof import('./components/atoms/input/GInputPassword.vue')['default']
+    GInputText: typeof import('./components/atoms/input/GInputText.vue')['default']
+    GSlideDownTransition: typeof import('./components/atoms/transitions/GSlideDownTransition.vue')['default']
     GTitle: typeof import('./components/atoms/GTitle.vue')['default']
+    GymnTitle: typeof import('./components/atoms/GymnTitle.vue')['default']
     Icon: typeof import('./components/atoms/Icon.vue')['default']
+    InputText: typeof import('./components/atoms/InputText.vue')['default']
+    RegisterFields: typeof import('./components/organism/RegisterFields.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SignInFields: typeof import('./components/organism/SignInFields.vue')['default']
   }
 }
