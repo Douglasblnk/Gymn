@@ -10,15 +10,8 @@ const rules = {
     msg: 'E-mail inválido',
   },
   validPassword: {
-    validator: (value) => {
-      const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/
-      const mediumRegex = /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/
-
-      if (value.length < 8) { return false }
-      if (strongRegex.test(value)) { return 'green' }
-      if (mediumRegex.test(value)) { return 'orange' }
-      return 'red'
-    },
+    validator: value => value.length >= 8,
+    msg: 'Senha muito curta',
   },
 }
 
@@ -45,23 +38,29 @@ export default (schema) => {
     }, 3000)
   }
 
+  const getRefValue = (model) => {
+    return model?.__v_isRef && typeof model === 'object'
+      ? model.value
+      : model
+  }
+
   const validate = (models) => {
-    return Object.entries(models).forEach(([ key, model ]) => {
+    return Object.entries(models).map(([ key, model ]) => {
       const validations = schema[key]
 
       const validationResult = validations.every((validation) => {
         const { validator, msg } = rules[validation]
-        const result = validator(model.value)
+        const result = validator(getRefValue(model))
 
         if (result === false) {
-          setErrors(key, !msg && result !== Boolean ? result : msg)
+          setErrors(key, msg)
         }
 
         return result
       })
 
       return validationResult
-    })
+    }).every(i => i)
   }
 
   return {

@@ -35,11 +35,9 @@ export default () => {
       })
 
       requestResult.value = response.data
+      return true
     }
     catch (err) {
-      const { setAlert } = useAlert()
-
-      setAlert({ text: JSON.stringify(err) })
       requestError.value = handleError(err)
     }
     finally {

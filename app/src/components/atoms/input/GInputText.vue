@@ -94,6 +94,7 @@ const model = computed({
 
       <div
         un-flex
+        un-items-center
         un-space-x-sm
         un-px-md
       >
