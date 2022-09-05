@@ -60,7 +60,6 @@
     "useRouteTransition": true,
     "useRouter": true,
     "useSlots": true,
-    "useWatch": true,
     "watch": true,
     "watchEffect": true,
     "watchPostEffect": true,

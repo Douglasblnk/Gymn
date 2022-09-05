@@ -2,7 +2,9 @@ import Axios from 'axios'
 
 const API_URL = import.meta.env.VITE_API_URL
 
-export default () => {
+const { setAlert } = useAlert()
+
+export default ({ showAlertOnError = false }) => {
   const requestLoading = ref(false)
   const requestError = ref(null)
   const requestResult = ref(null)
@@ -28,7 +30,7 @@ export default () => {
 
       const response = await Axios({
         method,
-        url: `${API_URL}/${uri}`,
+        url: `${ API_URL }/${ uri }`,
         data,
         headers,
         params,
@@ -39,6 +41,13 @@ export default () => {
     }
     catch (err) {
       requestError.value = handleError(err)
+
+      if (showAlertOnError) {
+        setAlert({
+          text: `${ requestError.value.statusCode } - ${ requestError.value.error }`,
+          type: 'negative',
+        })
+      }
     }
     finally {
       requestLoading.value = false

@@ -4,14 +4,8 @@ const { setAlert } = useAlert()
 
 const {
   executeRequest,
-  clearRequest,
-  requestResult,
   requestLoading,
-  requestError,
-} = useRequest()
-
-const { watchError } = useWatch()
-watchError(requestError)
+} = useRequest({ showAlertOnError: true })
 
 const { useFieldModel, validate, errors } = useField({
   name: [ 'isRequired' ],
@@ -26,6 +20,21 @@ const [
   email,
   password,
 ] = useFieldModel([ 'name', 'user', 'email', 'password' ])
+
+const STRONG_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/
+const MEDIUM_REGEX = /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/
+
+const isPasswordVisible = ref(false)
+
+const passwordStrength = computed(() => {
+  if (STRONG_REGEX.test(password.value)) { return 'bg-green' }
+  if (MEDIUM_REGEX.test(password.value)) { return 'bg-orange' }
+  return 'bg-red'
+})
+
+const setPasswordVisibility = () => {
+  isPasswordVisible.value = !isPasswordVisible.value
+}
 
 const clearFields = () => {
   name.value = ''
@@ -84,6 +93,7 @@ const register = () => {
         name="name"
         icon="i-mdi-account"
         un-w-full
+        upper-label="Preencha os campos para se cadastrar"
         :error-msg="errors.name"
         clearable
       />
@@ -108,13 +118,39 @@ const register = () => {
         clearable
       />
 
-      <GInputPassword
+      <GInputText
         v-model="password"
-        :error-msg="errors.password"
+        label="Senha"
+        name="password"
         un-w-full
         clearable
+        :type="isPasswordVisible ? 'text' : 'password'"
+        :error-msg="errors.password"
         @keypress.enter="register"
-      />
+      >
+        <template #append>
+          <Transition
+            name="fade"
+            mode="out-in"
+          >
+            <div
+              v-if="password"
+              un-w-5
+              un-h-5
+              un-rounded-full
+              :class="passwordStrength"
+            />
+          </Transition>
+
+          <GIcon
+            :icon="isPasswordVisible ? 'i-mdi-eye' : 'i-mdi-lock'"
+            un-text-white
+            un-text-2xl
+            un-cursor-pointer
+            @click="setPasswordVisibility"
+          />
+        </template>
+      </GInputText>
 
       <GButton
         label="Cadastrar"

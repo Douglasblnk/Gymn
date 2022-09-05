@@ -1,16 +1,18 @@
-import { defineConfig } from 'unocss'
-import presetWind from '@unocss/preset-wind'
-import presetAttributify from '@unocss/preset-attributify'
-import presetWebFonts from '@unocss/preset-web-fonts'
-import transformerDirective from '@unocss/transformer-directives'
-import presetMini from '@unocss/preset-mini'
-import presetIcons from '@unocss/preset-icons'
-import presetCore from './src/unocss/index'
+import {
+  defineConfig,
+  presetAttributify,
+  presetIcons,
+  presetUno,
+  presetWebFonts,
+  transformerDirectives,
+  transformerVariantGroup,
+} from 'unocss'
+
+import presetCore from './src/unocss'
 
 export default defineConfig({
   presets: [
-    presetMini(),
-    presetWind(),
+    presetUno(),
     presetCore(),
     presetAttributify(),
     presetIcons({
@@ -33,6 +35,7 @@ export default defineConfig({
     }),
   ],
   transformers: [
-    transformerDirective(),
+    transformerVariantGroup(),
+    transformerDirectives(),
   ],
 })

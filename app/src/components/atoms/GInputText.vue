@@ -106,7 +106,7 @@ const model = computed({
             v-if="clearable && model"
             un-text-white
             un-cursor-pointer
-            un-text-md
+            un-text-2xl
             icon="i-mdi-close"
             @click.stop="clearField"
           />
@@ -117,7 +117,7 @@ const model = computed({
         <GIcon
           v-if="icon"
           un-text-white
-          un-text-md
+          un-text-2xl
           :icon="icon"
         />
       </div>

@@ -1,3 +1,4 @@
+// FADE
 .fade-enter-active,
 .fade-leave-active
   transition: opacity 0.5s ease
@@ -6,6 +7,7 @@
 .fade-leave-to
   opacity: 0
 
+// SLIDE DOWN
 .slide-down-enter-active,
 .slide-down-leave-active
   transition: all .5s
@@ -15,6 +17,20 @@
   opacity: 0
   transform: translateY(-30px)
 
+// SLIDE LEFT
+.slide-left-enter-active,
+.slide-left-leave-active
+  transition: all .5s
+
+.slide-left-enter-from
+  transform: translateX(30px)
+
+.slide-left-leave-to
+  opacity: 0
+  transform: translateX(-30px)
+
+
+// SLIDE UP
 .slide-up-enter-active,
 .slide-up-leave-active
   transition: all .3s

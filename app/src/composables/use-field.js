@@ -60,7 +60,7 @@ export default (schema) => {
       })
 
       return validationResult
-    }).every(i => i)
+    }).every(hasError => hasError)
   }
 
   return {

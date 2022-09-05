@@ -1,13 +1,13 @@
 module.exports = {
-  extends: [
-    '@antfu',
-    '.eslintrc-auto-import.json',
-  ],
+  extends: [ '@antfu', '.eslintrc-auto-import.json' ],
   rules: {
-    'array-bracket-spacing': [ 'error', 'always' ],
-    'max-len': 'off',
-    'no-shadow': [ 'error', { ignoreOnInitialization: true } ],
-    'curly': [ 'error', 'all' ],
+    'vue/max-attributes-per-line': [
+      'error',
+      {
+        singleline: { max: 1 },
+        multiline: { max: 1 },
+      },
+    ],
     'vue/attributes-order': [
       'error',
       {
@@ -28,14 +28,18 @@ module.exports = {
         alphabetical: false,
       },
     ],
-    'vue/max-attributes-per-line': [ 'error', {
-      singleline: {
-        max: 1,
+    'curly': [ 'error', 'all' ],
+    'array-bracket-spacing': [ 'error', 'always' ],
+    'template-curly-spacing': [ 'error', 'always' ],
+    'max-len': 'off',
+    'no-shadow': [ 'error', { ignoreOnInitialization: true } ],
+    'no-unused-vars': [
+      'error',
+      {
+        ignoreRestSiblings: true,
+        argsIgnorePattern: '^_',
       },
-      multiline: {
-        max: 1,
-      },
-    } ],
+    ],
   },
   globals: {
     defineProps: 'readonly',

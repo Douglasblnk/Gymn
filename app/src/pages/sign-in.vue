@@ -4,11 +4,7 @@ const {
   clearRequest,
   requestResult,
   requestLoading,
-  requestError,
-} = useRequest()
-
-const { watchError } = useWatch()
-watchError(requestError)
+} = useRequest({ showAlertOnError: true })
 
 const { useFieldModel, validate, errors } = useField({
   email: [ 'isRequired', 'isValidEmail' ],
@@ -32,8 +28,16 @@ const checkEmail = () => {
   }
 }
 
-const makeLogin = () => {
-  // todo
+const makeLogin = async () => {
+  if (await checkEmail()) {
+    executeRequest({
+      uri: 'sign-in',
+      data: {
+        email: email.value,
+        password: email.value,
+      },
+    })
+  }
 }
 
 const isEmailValid = computed(() => {
@@ -51,6 +55,7 @@ const upperLabel = computed(() => {
   <div
     un-flex="~ col"
     un-h-screen
+    un-overflow-hidden
   >
     <GTitle
       text="GYMN!"
@@ -63,32 +68,70 @@ const upperLabel = computed(() => {
       un-justify-center
       un-px-md
     >
-      <GInputText
-        v-model="email"
-        label="Email"
-        name="email"
-        icon="i-mdi-email"
-        un-w-full
-        :upper-label="upperLabel"
-        :error-msg="errors.email"
-        :readonly="isEmailValid"
-        clearable
-        @keypress.enter="checkEmail"
-        @clear="clearRequest"
-      />
+      <div
+        un-mb-4xl
+        un-text-center
+      >
+        <Transition
+          name="fade"
+          mode="out-in"
+        >
+          <span
+            v-if="!isEmailValid"
+            un-text="white 2xl"
+          >
+            Acesse sua conta
+          </span>
+
+          <div
+            v-else
+            un-column
+            un-items-center
+            un-space-y-md
+          >
+            <span un-text="white 2xl">
+              Olá
+            </span>
+
+            <GChip
+              v-if="isEmailValid"
+              color="var(--color-secondary)"
+              :text="email"
+              clearable
+              size="xl"
+              @clear="clearRequest"
+            />
+          </div>
+        </Transition>
+      </div>
 
       <Transition
-        name="slide-down"
+        name="slide-left"
         mode="out-in"
       >
         <GInputText
-          v-if="isEmailValid"
+          v-if="!isEmailValid"
+          v-model="email"
+          label="Email"
+          name="email"
+          icon="i-mdi-email"
+          un-w-full
+          :upper-label="upperLabel"
+          :error-msg="errors.email"
+          :readonly="isEmailValid"
+          clearable
+          @keypress.enter="checkEmail"
+          @clear="clearRequest"
+        />
+
+        <GInputText
+          v-else
           v-model="password"
-          key="password"
           label="Senha"
           name="password"
           type="password"
           icon="i-mdi-lock"
+          :upper-label="upperLabel"
           :error-msg="errors.password"
           un-w-full
           clearable
@@ -97,11 +140,11 @@ const upperLabel = computed(() => {
       </Transition>
 
       <GButton
-        label="Continuar"
+        :label="isEmailValid ? 'Acessar' : 'Continuar'"
         :loading="requestLoading"
         un-mt-sm
         primary
-        @click="checkEmail"
+        @click="makeLogin"
       />
     </div>
 
