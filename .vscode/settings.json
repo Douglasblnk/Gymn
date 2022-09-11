@@ -11,6 +11,9 @@
   "[vue]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   },
+  "[go]": {
+   "editor.defaultFormatter": null
+  },
   "colorize.languages": [
     "javascript",
     "typescript",
