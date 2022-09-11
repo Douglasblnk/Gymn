@@ -2,24 +2,19 @@ package studentService
 
 import (
 	"gymn/internal/dto"
-	"gymn/internal/exceptions"
 	"gymn/internal/models"
 	studentRepository "gymn/internal/repository/student"
-	userRepository "gymn/internal/repository/user"
+	userService "gymn/internal/services/user"
 	"gymn/internal/utils"
 	"gymn/v1/schemas"
 	"time"
 )
 
 func CreateStudent(userID int, data *schemas.RegisterStudent) (*dto.StudentDTO, *utils.Error) {
-	user, err := userRepository.FindUserByID(userID)
+	user, err := userService.ValidateUserPersonal(userID)
 
 	if err != nil {
 		return nil, err
-	}
-
-	if *user.Is_personal == false {
-		return nil, utils.Throw(exceptions.ErrStudentNotPersonal, 403)
 	}
 
 	student := &models.Student{

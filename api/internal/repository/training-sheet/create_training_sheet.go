@@ -1,4 +1,4 @@
-package studentRepository
+package trainingSheetRepository
 
 import (
 	"gymn/internal/database"
@@ -6,9 +6,9 @@ import (
 	"gymn/internal/utils"
 )
 
-func CreateTrainingSheet(user *models.User, student *models.TrainingSheet) *utils.Error {
-	if err := database.DB.Model(user).Association("Students").Append(student); err != nil {
-		return utils.Throw(err.Error(), 404)
+func CreateTrainingSheet(user *models.User, trainingSheet *models.TrainingSheet) *utils.Error {
+	if err := database.DB.Model(user).Association("TrainingSheet").Append(trainingSheet); err != nil {
+		return utils.Throw(err.Error(), 400)
 	}
 
 	return nil

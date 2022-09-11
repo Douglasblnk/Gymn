@@ -43,11 +43,13 @@ CREATE TABLE "students" (
 CREATE TABLE "training_sheets" (
   "id" SERIAL PRIMARY KEY,
   "uid" uuid NOT NULL DEFAULT gen_random_uuid(),
+  "user_id" INT NOT NULL,
   "name" VARCHAR NOT NULL,
   "active" BOOLEAN DEFAULT true,
   "created_at" TIMESTAMP NOT NULL DEFAULT now(),
   "updated_at" TIMESTAMP NOT NULL DEFAULT now(),
-  "deleted_at" TIMESTAMP
+  "deleted_at" TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE "student_training_sheets" (

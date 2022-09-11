@@ -5,6 +5,11 @@ type RegisterTrainingSheet struct {
 }
 
 type UpdateTrainingSheet struct {
-	Name   string `json:"name"`
-	Active string `json:"active"`
+	Name   *string `json:"name"`
+	Active *bool   `json:"active"`
+}
+
+type StudentTrainingSheet struct {
+	StudentID       string `json:"studentId"`
+	TrainingSheetID string `json:"trainingSheetId"`
 }

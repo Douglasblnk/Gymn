@@ -2,22 +2,17 @@ package studentService
 
 import (
 	"gymn/internal/dto"
-	"gymn/internal/exceptions"
 	studentRepository "gymn/internal/repository/student"
-	userRepository "gymn/internal/repository/user"
+	userService "gymn/internal/services/user"
 	"gymn/internal/utils"
 	"gymn/v1/schemas"
 )
 
 func UpdateStudent(userID int, id string, data *schemas.UpdateStudent) (*dto.StudentDTO, *utils.Error) {
-	user, err := userRepository.FindUserByID(userID)
+	_, err := userService.ValidateUserPersonal(userID)
 
 	if err != nil {
 		return nil, err
-	}
-
-	if *user.Is_personal == false {
-		return nil, utils.Throw(exceptions.ErrStudentNotPersonal, 403)
 	}
 
 	student, err := studentRepository.GetStudentByUID(userID, id)

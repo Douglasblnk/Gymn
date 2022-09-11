@@ -8,7 +8,7 @@ import (
 )
 
 func AuthRoutes(app *fiber.App) {
-	app.Post("/email-validation", authHandlers.EmailValidation)
+	app.Post("/validate-email", authHandlers.EmailValidation)
 	app.Post("/sign-in", authHandlers.SignInHandler)
 }
 

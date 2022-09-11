@@ -1,50 +1,31 @@
 package trainingSheetService
 
 import (
+	"gymn/internal/dto"
 	"gymn/internal/models"
+	trainingSheetRepository "gymn/internal/repository/training-sheet"
+	userService "gymn/internal/services/user"
 	"gymn/internal/utils"
 	"gymn/v1/schemas"
 )
 
-func CreateTrainingSheet(userID int, data *schemas.RegisterTrainingSheet) (*models.TrainingSheet, *utils.Error) {
-	user, err := trainingSheetRepository.FindUserByID(userID)
+func CreateTrainingSheet(userID int, data *schemas.RegisterTrainingSheet) (*dto.TrainingSheetDTO, *utils.Error) {
+	user, err := userService.ValidateUserPersonal(userID)
 
 	if err != nil {
 		return nil, err
 	}
 
-	if *user.Is_personal == false {
-		return nil, utils.Throw(exceptions.ErrStudentNotPersonal, 403)
+	trainingSheet := &models.TrainingSheet{
+		Name: data.Name,
 	}
 
-	student := &models.Student{
-		FirstName: data.FirstName,
-		LastName:  data.LastName,
-		Birth:     data.Birth,
-		Color:     data.Color,
-		Code:      utils.GenerateRandomText(24),
-		StartDate: (func() string {
-			if data.StartDate != nil {
-				return *data.StartDate
-			}
-
-			return time.Now().Format("01-02-2006")
-		})(),
-		Weight: data.Weight,
-		Height: data.Height,
-	}
-
-	if err := trainingSheetRepository.CreateStudent(user, student); err != nil {
+	if err := trainingSheetRepository.CreateTrainingSheet(user, trainingSheet); err != nil {
 		return nil, err
 	}
 
-	return &dto.StudentDTO{
-		FirstName: student.FirstName,
-		LastName:  student.LastName,
-		Birth:     student.Birth,
-		Color:     student.Color,
-		StartDate: student.StartDate,
-		Weight:    student.Weight,
-		Height:    student.Height,
+	return &dto.TrainingSheetDTO{
+		Name:   trainingSheet.Name,
+		Active: true,
 	}, nil
 }
