@@ -9,7 +9,7 @@ import (
 	"gymn/v1/schemas"
 )
 
-func AssociateStudentTrainingSheet(userID int, data *schemas.StudentTrainingSheet) (bool, *utils.Error) {
+func AssociateTrainingSheetStudent(userID int, data *schemas.StudentTrainingSheet) (bool, *utils.Error) {
 	_, err := userService.ValidateUserPersonal(userID)
 
 	if err != nil {
@@ -17,6 +17,10 @@ func AssociateStudentTrainingSheet(userID int, data *schemas.StudentTrainingShee
 	}
 
 	trainingSheet, err := trainingSheetRepository.GetTrainingSheetByUID(userID, data.TrainingSheetID)
+
+	if err != nil {
+		return false, err
+	}
 
 	if !trainingSheet.Active {
 		return false, utils.Throw(exceptions.ErrTrainingSheetInactive, 403)
@@ -28,7 +32,7 @@ func AssociateStudentTrainingSheet(userID int, data *schemas.StudentTrainingShee
 		return false, err
 	}
 
-	if err = trainingSheetRepository.AssociateStudentTrainingSheet(student.ID, trainingSheet.ID); err != nil {
+	if err = trainingSheetRepository.AssociateTrainingSheetStudent(student.ID, trainingSheet.ID); err != nil {
 		return false, err
 	}
 

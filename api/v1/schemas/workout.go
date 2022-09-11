@@ -20,7 +20,7 @@ type UpdateWorkout struct {
 	Cadence     *string  `json:"cadence"`
 }
 
-type TrainingSheetWorkout struct {
-	TrainingSheetId string `json:"trainingSheetId"`
-	WorkoutId       string `json:"workoutId"`
+type WorkoutTrainingSheet struct {
+	TrainingSheetID string `json:"trainingSheetId"`
+	WorkoutID       string `json:"workoutId"`
 }
