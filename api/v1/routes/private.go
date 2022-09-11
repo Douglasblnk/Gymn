@@ -13,8 +13,9 @@ import (
 func WorkoutRoutes(app *fiber.App) {
 	app.Post("/workout", middleware.JWTAuth, workoutHandlers.CreateWorkout)
 	app.Post("/workout-training-sheet", middleware.JWTAuth, workoutHandlers.AssociateWorkoutTrainingSheet)
-	app.Put("/workout/:id", middleware.JWTAuth, workoutHandlers.UpdateWorkout)
 	app.Get("/workout", middleware.JWTAuth, workoutHandlers.GetAllWorkouts)
+	app.Get("/training-sheet-workout/:id", middleware.JWTAuth, workoutHandlers.GetTrainingSheetWorkouts)
+	app.Put("/workout/:id", middleware.JWTAuth, workoutHandlers.UpdateWorkout)
 	app.Get("/workout/:id", middleware.JWTAuth, workoutHandlers.GetWorkout)
 	app.Delete("/workout/:id", middleware.JWTAuth, workoutHandlers.DeleteWorkout)
 }

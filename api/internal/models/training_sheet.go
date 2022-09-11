@@ -13,6 +13,7 @@ type TrainingSheet struct {
 	Name       string         `gorm:"not null"`
 	Active     bool           `gorm:"not null;default:true"`
 	Student    []*Student     `gorm:"many2many:public.student_training_sheets"`
+	Workout    []*Workout     `gorm:"many2many:public.training_sheets_workouts"`
 	Created_at time.Time      `gorm:"default:now();not null"`
 	Updated_at time.Time      `gorm:"default:now();not null"`
 	Deleted_at gorm.DeletedAt ``
