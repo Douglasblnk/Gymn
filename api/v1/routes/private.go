@@ -4,10 +4,15 @@ import (
 	studentHandlers "gymn/v1/handlers/student"
 	trainingSheetHandlers "gymn/v1/handlers/training-sheet"
 	userHandlers "gymn/v1/handlers/user"
+	workoutHandlers "gymn/v1/handlers/workout"
 	"gymn/v1/middleware"
 
 	"github.com/gofiber/fiber/v2"
 )
+
+func WorkoutRoutes(app *fiber.App) {
+	app.Post("/workout", middleware.JWTAuth, workoutHandlers.CreateWorkout)
+}
 
 func TrainingSheetRoutes(app *fiber.App) {
 	app.Post("/training-sheet", middleware.JWTAuth, trainingSheetHandlers.CreateTrainingSheet)
@@ -33,6 +38,7 @@ func UserPrivateRoutes(app *fiber.App) {
 }
 
 func PrivateRoutes(app *fiber.App) {
+	WorkoutRoutes(app)
 	TrainingSheetRoutes(app)
 	StudentRoutes(app)
 	UserPrivateRoutes(app)

@@ -17,5 +17,4 @@ func GetStudentCode(c *fiber.Ctx) error {
 	}
 
 	return c.Status(fiber.StatusOK).JSON(response)
-
 }

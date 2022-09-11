@@ -24,5 +24,4 @@ func AssociateStudentTrainingSheet(c *fiber.Ctx) error {
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(response)
-
 }
