@@ -6,7 +6,7 @@ import (
 	"gymn/internal/utils"
 )
 
-func GetTrainingSheets(userID int) ([]*dto.TrainingSheetDTO, *utils.Error) {
+func GetAllTrainingSheets(userID int) ([]*dto.TrainingSheetDTO, *utils.Error) {
 	trainingSheetsModel, err := trainingSheetRepository.GetAllTrainingSheets(userID)
 
 	if err != nil {
@@ -16,12 +16,12 @@ func GetTrainingSheets(userID int) ([]*dto.TrainingSheetDTO, *utils.Error) {
 	var trainingSheets []*dto.TrainingSheetDTO
 
 	for _, trainingSheet := range trainingSheetsModel {
-		trainingSheetsDTO := &dto.TrainingSheetDTO{
+		trainingSheetDTO := &dto.TrainingSheetDTO{
 			Name:   trainingSheet.Name,
 			Active: trainingSheet.Active,
 		}
 
-		trainingSheets = append(trainingSheets, trainingSheetsDTO)
+		trainingSheets = append(trainingSheets, trainingSheetDTO)
 	}
 
 	return trainingSheets, nil

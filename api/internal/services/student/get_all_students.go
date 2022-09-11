@@ -6,7 +6,7 @@ import (
 	"gymn/internal/utils"
 )
 
-func GetStudents(userID int) ([]*dto.StudentDTO, *utils.Error) {
+func GetAllStudents(userID int) ([]*dto.StudentDTO, *utils.Error) {
 	studentsModel, err := studentRepository.GetAllStudents(userID)
 
 	if err != nil {
