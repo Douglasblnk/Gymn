@@ -12,6 +12,7 @@ import (
 
 func WorkoutRoutes(app *fiber.App) {
 	app.Post("/workout", middleware.JWTAuth, workoutHandlers.CreateWorkout)
+	app.Put("/workout/:id", middleware.JWTAuth, workoutHandlers.UpdateWorkout)
 }
 
 func TrainingSheetRoutes(app *fiber.App) {

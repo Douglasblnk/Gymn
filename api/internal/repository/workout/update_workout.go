@@ -6,8 +6,8 @@ import (
 	"gymn/internal/utils"
 )
 
-func CreateWorkout(user *models.User, workout *models.Workout) *utils.Error {
-	if err := database.DB.Model(user).Association("Workout").Append(workout); err != nil {
+func UpdateWorkout(workout *models.Workout) *utils.Error {
+	if err := database.DB.Save(workout).Error; err != nil {
 		return utils.Throw(err.Error(), 400)
 	}
 

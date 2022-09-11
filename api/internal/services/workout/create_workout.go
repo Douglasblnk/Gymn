@@ -1,4 +1,4 @@
-package trainingSheetService
+package workoutService
 
 import (
 	"gymn/internal/dto"
