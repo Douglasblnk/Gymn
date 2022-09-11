@@ -1,16 +1,15 @@
 package handlers
 
 import (
-	studentService "gymn/internal/services/student"
+	trainingSheetService "gymn/internal/services/training-sheet"
 
 	"github.com/gofiber/fiber/v2"
 )
 
-func GetStudent(c *fiber.Ctx) error {
-	studentID := c.Params("id")
+func GetAllTrainingSheets(c *fiber.Ctx) error {
 	userID := c.Locals("userID").(int)
 
-	response, err := studentService.GetStudent(userID, studentID)
+	response, err := trainingSheetService.GetAllTrainingSheets(userID)
 
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(err)

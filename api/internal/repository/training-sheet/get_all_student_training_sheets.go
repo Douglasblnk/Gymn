@@ -11,9 +11,9 @@ func GetAllStudentTrainingSheets(userID int, studentID int) ([]*models.TrainingS
 		ID: studentID,
 	}
 
-	var trainingSheet []*models.TrainingSheet
+	var trainingSheets []*models.TrainingSheet
 
-	database.DB.Model(student).Association("TrainingSheet").Find(&trainingSheet)
+	database.DB.Model(student).Association("TrainingSheet").Find(&trainingSheets)
 
-	return trainingSheet, nil
+	return trainingSheets, nil
 }

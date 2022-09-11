@@ -69,17 +69,19 @@ CREATE TABLE "equipment" (
 CREATE TABLE "workouts" (
   "id" SERIAL PRIMARY KEY,
   "uid" uuid NOT NULL DEFAULT gen_random_uuid(),
+  "user_id" INT NOT NULL,
   "exercise" VARCHAR NOT NULL,
   "equipment_id" INT,
   "description" VARCHAR,
-  "repetitions" VARCHAR,
-  "series" INT,
-  "rest_time" INT,
+  "repetitions" VARCHAR NOT NULL,
+  "series" VARCHAR NOT NULL,
+  "rest_time" VARCHAR,
   "weight" float,
   "cadence" VARCHAR,
   "created_at" TIMESTAMP NOT NULL DEFAULT now(),
   "updated_at" TIMESTAMP NOT NULL DEFAULT now(),
   "deleted_at" TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
   FOREIGN KEY ("equipment_id") REFERENCES "equipment" ("id") ON UPDATE CASCADE
 );
 

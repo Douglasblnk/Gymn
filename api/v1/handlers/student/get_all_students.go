@@ -6,11 +6,10 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func GetStudent(c *fiber.Ctx) error {
-	studentID := c.Params("id")
+func GetAllStudents(c *fiber.Ctx) error {
 	userID := c.Locals("userID").(int)
 
-	response, err := studentService.GetStudent(userID, studentID)
+	response, err := studentService.GetAllStudents(userID)
 
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(err)

@@ -16,6 +16,7 @@ type User struct {
 	Photo         *string          ``
 	Students      []*Student       `gorm:"foreignKey:UserID"`
 	TrainingSheet []*TrainingSheet `gorm:"foreignKey:UserID"`
+	Workout       []*Workout       `gorm:"foreignKey:UserID"`
 	CreatedAt     time.Time        `gorm:"default:now();not null"`
 	UpdatedAt     time.Time        `gorm:"default:now();not null"`
 	DeletedAt     gorm.DeletedAt   ``
