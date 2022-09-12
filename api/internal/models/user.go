@@ -14,6 +14,7 @@ type User struct {
 	Password      string           `gorm:"not null"`
 	Is_personal   *bool            `gorm:"default:FALSE;not null"`
 	Photo         *string          ``
+	Session       []*Session       `gorm:"foreignKey:UserID"`
 	Students      []*Student       `gorm:"foreignKey:UserID"`
 	TrainingSheet []*TrainingSheet `gorm:"foreignKey:UserID"`
 	Workout       []*Workout       `gorm:"foreignKey:UserID"`

@@ -1,7 +1,6 @@
 package authService
 
 import (
-	"fmt"
 	"gymn/internal/dto"
 	"gymn/internal/utils"
 	"gymn/v1/schemas"
@@ -14,9 +13,7 @@ func SignIn(data *schemas.Login) (*dto.SignInResponseDTO, *utils.Error) {
 		return nil, err
 	}
 
-	fmt.Println("user", user)
-
-	session, err := CreateSession(user.ID)
+	session, err := CreateSession(user)
 
 	if err != nil {
 		return nil, err
