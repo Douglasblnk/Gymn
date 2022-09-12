@@ -63,7 +63,10 @@ CREATE TABLE "student_training_sheets" (
 CREATE TABLE "equipment" (
   "id" SERIAL PRIMARY KEY,
   "uid" uuid NOT NULL DEFAULT gen_random_uuid(),
-  "name" VARCHAR
+  "name" VARCHAR,
+  "created_at" TIMESTAMP NOT NULL DEFAULT now(),
+  "updated_at" TIMESTAMP NOT NULL DEFAULT now(),
+  "deleted_at" TIMESTAMP
 );
 
 CREATE TABLE "workouts" (

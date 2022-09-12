@@ -1,6 +1,7 @@
 package routes
 
 import (
+	equipmentHandlers "gymn/v1/handlers/equipment"
 	studentHandlers "gymn/v1/handlers/student"
 	trainingSheetHandlers "gymn/v1/handlers/training-sheet"
 	userHandlers "gymn/v1/handlers/user"
@@ -9,6 +10,14 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 )
+
+func EquipmentRoutes(app *fiber.App) {
+	app.Post("/equipment", middleware.JWTAuth, equipmentHandlers.CreateEquipment)
+	app.Get("/equipment", middleware.JWTAuth, equipmentHandlers.GetAllEquipments)
+	app.Get("/equipment/:id", middleware.JWTAuth, equipmentHandlers.GetEquipment)
+	app.Put("/equipment/:id", middleware.JWTAuth, equipmentHandlers.UpdateEquipment)
+	app.Delete("/equipment/:id", middleware.JWTAuth, equipmentHandlers.DeleteEquipment)
+}
 
 func WorkoutRoutes(app *fiber.App) {
 	app.Post("/workout", middleware.JWTAuth, workoutHandlers.CreateWorkout)
@@ -44,6 +53,7 @@ func UserPrivateRoutes(app *fiber.App) {
 }
 
 func PrivateRoutes(app *fiber.App) {
+	EquipmentRoutes(app)
 	WorkoutRoutes(app)
 	TrainingSheetRoutes(app)
 	StudentRoutes(app)
