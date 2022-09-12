@@ -8,17 +8,17 @@ import (
 	"strconv"
 )
 
-func CreateSession(userId int) (*models.Session, *utils.Error) {
+func CreateSession(user *models.User) (*models.Session, *utils.Error) {
 	refreshTokenLength, _ := strconv.ParseInt(os.Getenv("REFRESH_TOKEN_LENGTH"), 10, 64)
 
 	refreshToken := utils.GenerateRandomText(refreshTokenLength)
 
 	session := &models.Session{
-		UserID:       userId,
+		UserID:       user.ID,
 		RefreshToken: refreshToken,
 	}
 
-	if err := authRepository.CreateSession(session); err != nil {
+	if err := authRepository.CreateSession(user, session); err != nil {
 		return nil, err
 	}
 
