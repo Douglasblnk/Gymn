@@ -72,6 +72,8 @@ const register = () => {
 
 <template>
   <div
+    un-w="sm:col-7 md:col-5 lg:col-3"
+    un-m-auto
     un-flex="~ col"
     un-h-screen
   >

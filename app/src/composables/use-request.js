@@ -34,6 +34,7 @@ export default ({ showAlertOnError = false }) => {
         data,
         headers,
         params,
+        withCredentials: true,
       })
 
       requestResult.value = response.data

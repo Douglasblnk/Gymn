@@ -13,33 +13,6 @@ const { useFieldModel, validate, errors } = useField({
 
 const [ email, password ] = useFieldModel([ 'email', 'password' ])
 
-const checkEmail = () => {
-  if (requestLoading.value) { return }
-
-  const isValid = validate({ email })
-
-  if (isValid) {
-    return executeRequest({
-      uri: 'email-validation',
-      data: {
-        email: email.value,
-      },
-    })
-  }
-}
-
-const makeLogin = async () => {
-  if (await checkEmail()) {
-    executeRequest({
-      uri: 'sign-in',
-      data: {
-        email: email.value,
-        password: email.value,
-      },
-    })
-  }
-}
-
 const isEmailValid = computed(() => {
   return requestResult.value === true
 })
@@ -49,10 +22,44 @@ const upperLabel = computed(() => {
     ? 'Insira sua senha'
     : 'Para começar, insira seu e-mail ou cadastre-se'
 })
+
+const checkEmail = async () => {
+  if (requestLoading.value) { return }
+
+  validate({ email }) && executeRequest({
+    uri: 'validate-email',
+    data: {
+      email: email.value,
+    },
+  })
+}
+
+const makeLogin = async () => {
+  validate({ password }) && executeRequest({
+    uri: 'sign-in',
+    data: {
+      email: email.value,
+      password: password.value,
+    },
+  })
+}
+
+const executeAction = () => {
+  isEmailValid.value ? makeLogin() : checkEmail()
+}
+
+const testCookie = () => {
+  executeRequest({
+    uri: 'student',
+    method: 'GET',
+  })
+}
 </script>
 
 <template>
   <div
+    un-w="sm:col-7 md:col-5 lg:col-3"
+    un-m-auto
     un-flex="~ col"
     un-h-screen
     un-overflow-hidden
@@ -144,7 +151,12 @@ const upperLabel = computed(() => {
         :loading="requestLoading"
         un-mt-sm
         primary
-        @click="makeLogin"
+        @click="executeAction"
+      />
+
+      <GButton
+        label="cookie"
+        @click="testCookie"
       />
     </div>
 

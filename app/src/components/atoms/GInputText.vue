@@ -15,6 +15,7 @@ const props = defineProps({
     default: 'white',
   },
 
+  name: String,
   placeholder: String,
   upperLabel: String,
   label: String,
@@ -68,6 +69,7 @@ const model = computed({
     >
       <input
         v-model="model"
+        v-bind="$attrs"
         ref="inputRef"
         un-p="t-6 b-3 x-6"
         un-w-full
@@ -77,6 +79,7 @@ const model = computed({
         un-border-none
         un-bg-transparent
         :type="type"
+        :name="name"
         :placeholder="placeholder"
         :readonly="readonly"
       >
